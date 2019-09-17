@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}WEB EMS{% endblock %}</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/static/css/vertical.css">
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .interfaces {
+            padding: 0;
+        }
+
+        .interfaces .interface {
+            font-size: 3em;
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements {
+            font-size: 20px;
+            padding: 1em;
+            margin-top: 20px;
+
+            background-color: #fff;
+            color: #333;
+        }
+
+        .interfaces .interface .elements .element {
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements .element .statuses {
+            padding: 2em;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .element {
+            display: inline-block;
+        }
+
+        .name {
+            display: block;
+            text-align: center;
+            /* background-color: #000; */
+        }
+
+        .status {
+            padding: 1.5em;
+            margin: 1em;
+            display: block;
+            background-size: cover;
+        }
+
+        .status.active {
+            background-image: url('/static/icon/ports/active.png');
+        }
+
+        .status.disabled {
+            background-image: url('/static/icon/ports/disabled.png');
+        }
+
+        .status.unplugged {
+            background-image: url('/static/icon/ports/unplug.png');
+        }
+
+        .status span {
+            display: inline-block;
+        }
+
+        .panel {
+            box-shadow: 0 1px 3px #000;
+        }
+
+        .page-content {
+            padding-top: 20px;
+        }
+    </style>
+    {% block custom_style %} {% endblock%}
+</head>
+
+<body>
+    <div id="wrapper" class="active">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul id="sidebar_menu" class="sidebar-nav">
+                <li class="sidebar-brand"><a id="menu-toggle" href="/">HCRR<span id="main_icon"
+                            class="glyphicon glyphicon-align-justify"></span></a></li>
+            </ul>
+            <ul class="sidebar-nav" id="sidebar">
+                <li><a href="/">Home<span class="sub_icon glyphicon glyphicon-home"></span></a></li>
+                <li><a href="{% url 'ems_interfaces' %}">Interfaces<span
+                            class="sub_icon glyphicon glyphicon-pushpin"></span></a></li>
+                <!-- <li><a href="/logs">Logs<span class="sub_icon glyphicon glyphicon-link"></span></a></li> -->
+                <li><a href="{% url 'ems_alarms' %}">Alarms<span
+                            class="sub_icon glyphicon glyphicon-pushpin"></span></a></li>
+                <li><a href="{% url 'ems_events' %}">Events<span
+                            class="sub_icon glyphicon glyphicon-pushpin"></span></a></li>
+                <li><a href="{% url 'ems_cdr' %}">CDR<span class="sub_icon glyphicon glyphicon-pushpin"></span></a>
+                </li>
+                <li><a href="{% url 'ems_temperature' %}">Heating<span
+                            class="sub_icon glyphicon glyphicon-fire"></span></a>
+                </li>
+                <li><a href="{% url 'ems_help' %}">Help<span class=" sub_icon glyphicon glyphicon-pushpin"></span></a>
+                </li>
+
+                <li><a href="{% url 'ems_import' %}">Import<span
+                            class=" sub_icon glyphicon glyphicon-pushpin"></span></a>
+                </li>
+
+                <li><a href="{% url 'ems_export' %}">Export<span
+                            class=" sub_icon glyphicon glyphicon-pushpin"></span></a>
+                </li>
+
+                <li><a href="{% url 'logout' %}">Logout<span class="sub_icon glyphicon glyphicon-log-out"></span></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content">
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                            role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            {{ message }}
+
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="row">
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+        });
+    </script>
+    {% block js_footer %} {% endblock %}
+</body>
+
+</html>

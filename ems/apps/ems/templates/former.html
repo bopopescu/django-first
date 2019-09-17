@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}Interfaces | Web EMS{% endblock %}
+{% block content %}
+{% for element in elementals %}
+
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            <form action="" method="POST" role="form">
+                {% csrf_token %}
+
+                <input type="hidden" name="interface" id="inputinterface" value="{{interface}}">
+
+                {{element.as_p}}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+{% endfor %}
+{% endblock %}

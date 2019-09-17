@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+
+{% block custom_style %}
+<style>
+    #help {
+        font-family: 'Open Sans', sans-serif;
+        width: 80%;
+        margin: 0 auto;
+        display: table;
+    }
+
+    #help a {
+        text-decoration: none;
+    }
+
+    #help a:hover {
+        color: #C0392B;
+    }
+
+    #help ul {
+        padding: 0;
+        margin: 20px 0;
+        color: #555;
+    }
+
+    #help ul>li {
+        list-style: none;
+        border: 1px solid #ddd;
+        border-bottom: 0;
+        display: block;
+        padding: 15px;
+        overflow: hidden;
+    }
+
+    #help ul:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #help ul>li:hover {
+        background: #efefef;
+    }
+
+    .expand {
+        text-decoration: none;
+        color: #000;
+        cursor: pointer;
+    }
+
+    h2 {
+        padding: 0;
+        margin: 0;
+        font-size: 27px;
+        font-weight: 400;
+    }
+
+    span {
+        font-size: 12.5px;
+    }
+
+    .detail a {
+        text-decoration: none;
+        color: #C0392B;
+        border: 1px solid #C0392B;
+        padding: 6px 10px 5px;
+        font-size: 14px;
+    }
+
+    .detail {
+        margin: 10px 0 10px 0px;
+        /* display: none; */
+        font-weight: 100;
+        font-size: 22px;
+    }
+
+    .detail span {
+        margin: 0;
+    }
+
+    .right-arrow {
+        margin-left: 20px;
+        width: 30px;
+        height: 100%;
+        float: right;
+        font-weight: 100;
+        font-size: 40px;
+        line-height: 20px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="help">
+                <ul>
+                    {% for help in helps %}
+                    <li>
+                        <a class="expand">
+                            <div class="right-arrow">+</div>
+                            <div>
+                                <h2>{{help.title}}</h2>
+                            </div>
+                        </a>
+
+                        <div class="detail">
+                            <div>{{help.description}}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

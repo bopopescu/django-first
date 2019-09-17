@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %} Alarms {% endblock %}
+{% block content %}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Call data record</h3>
+        </div>
+
+        {% if cdrs %}
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Started at </th>
+                    <th>End at</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cdr in cdrs %}
+                <tr>
+                    <td>{{ cdr.caller_id}}</td>
+                    <td>{{ cdr.callee_id}}</td>
+                    <td>{{ cdr.start_call_at}}</td>
+                    <td> {% if cdr.is_active %} Going on {% else%} {{cdr.end_call_at}} {% endif %} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else%}
+        <div class="panel-body">
+            <h3>No alarm found, everything working fine</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/static/css/vertical.css">
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .interfaces {
+            padding: 0;
+        }
+
+        .interfaces .interface {
+            font-size: 3em;
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements {
+            font-size: 20px;
+            padding: 1em;
+            margin-top: 20px;
+
+            background-color: #fff;
+            color: #333;
+        }
+
+        .interfaces .interface .elements .element {
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements .element .statuses {
+            padding: 2em;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .element {
+            display: inline-block;
+        }
+
+        .name {
+            display: block;
+            text-align: center;
+            /* background-color: #000; */
+        }
+
+        .status {
+            padding: 1.5em;
+            margin: 1em;
+            display: block;
+            background-size: cover;
+        }
+
+        .status.active {
+            background-image: url('/static/icon/ports/active.png');
+        }
+
+        .status.disabled {
+            background-image: url('/static/icon/ports/disabled.png');
+        }
+
+        .status.unplugged {
+            background-image: url('/static/icon/ports/unplug.png');
+        }
+
+        .status span {
+            display: inline-block;
+        }
+
+        .panel {
+            box-shadow: 0 1px 3px #000;
+        }
+
+        .page-content {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper" class="active">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul id="sidebar_menu" class="sidebar-nav">
+                <li class="sidebar-brand"><a id="menu-toggle" href="#">HCRR<span id="main_icon"
+                            class="glyphicon glyphicon-align-justify"></span></a></li>
+            </ul>
+            <ul class="sidebar-nav" id="sidebar">
+                <li><a>Home<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+                <ul class="sidebar-nav" id="sidebar">
+                    <li><a>Eth<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+                    <li><a>E1<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+                </ul>
+                <li><a>Overview<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+                <li><a>Alarms<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content">
+
+                <div class="row">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Alarms</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Events</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="barChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Other chartset</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="donut"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Another chartset</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="alarms"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Site information</div>
+                            <!-- Table -->
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Site name</th>
+                                    <td>{{site.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Owner</th>
+                                    <td>{{site.owner}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Device</th>
+                                    <td>{{device}}</td>
+                                </tr>
+                                <tr>
+                                    <th>NMS IP</th>
+                                    <td>{{site.nms_ip}}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        {% for interface in interfaces %}
+                        {% if interface.elements.count %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{interface.name}} has <span class="badge"
+                                        title="{{ interface.name }} has {{ interface.elements.count }} elements">{{ interface.elements.count }}</span>
+                                    elements
+                                    <a class="pull-right" href="{% url 'interface' interface.id %}">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                {% for e in interface.elements.all %}
+                                <!-- {{ e.name }} -- {{e.status}} -->
+                                <div class="element">
+                                    <span class="status {{ e.status }}"></span>
+                                    <span class="name">{{e.name}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+
+        var ctx = document.getElementById('donut').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+
+        var ctx = document.getElementById('alarms').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['00 - 01', '01 - 02', '02 - 03', '03 - 04', '04 - 05', '05 - 06', '06 - 07'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+    </script>
+    <script>
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+        };
+
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                    ],
+                    backgroundColor: [
+                        window.chartColors.red,
+                        window.chartColors.orange,
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Red',
+                    'Orange',
+                    'Yellow',
+                    'Green',
+                    'Blue'
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById('chart-area').getContext('2d');
+            window.myPie = new Chart(ctx, config);
+        };
+
+        document.getElementById('randomizeData').addEventListener('click', function () {
+            config.data.datasets.forEach(function (dataset) {
+                dataset.data = dataset.data.map(function () {
+                    return randomScalingFactor();
+                });
+            });
+
+            window.myPie.update();
+        });
+
+        var colorNames = Object.keys(window.chartColors);
+        document.getElementById('addDataset').addEventListener('click', function () {
+            var newDataset = {
+                backgroundColor: [],
+                data: [],
+                label: 'New dataset ' + config.data.datasets.length,
+            };
+
+            for (var index = 0; index < config.data.labels.length; ++index) {
+                newDataset.data.push(randomScalingFactor());
+
+                var colorName = colorNames[index % colorNames.length];
+                var newColor = window.chartColors[colorName];
+                newDataset.backgroundColor.push(newColor);
+            }
+
+            config.data.datasets.push(newDataset);
+            window.myPie.update();
+        });
+
+        document.getElementById('removeDataset').addEventListener('click', function () {
+            config.data.datasets.splice(0, 1);
+            window.myPie.update();
+        });
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block title %}Temperature | Web EMS{% endblock %}
+{% block content %}
+<div class="col-xs-8 col-sm-10 col-md-10 col-lg-10">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Temperature</h3>
+        </div>
+        <div class="panel-body">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block js_footer %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Temperature',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>
+
+{% endblock %}

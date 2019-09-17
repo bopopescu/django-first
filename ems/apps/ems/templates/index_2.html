@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .interfaces {
+            padding: 0;
+        }
+
+        .interfaces .interface {
+            font-size: 3em;
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements {
+            font-size: 20px;
+            padding: 1em;
+            margin-top: 20px;
+
+            background-color: #fff;
+            color: #333;
+        }
+
+        .interfaces .interface .elements .element {
+            padding: 1em;
+        }
+
+        .interfaces .interface .elements .element .statuses {
+            padding: 2em;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .element {
+            display: inline-block;
+        }
+
+        .name {
+            display: block;
+            text-align: center;
+            /* background-color: #000; */
+        }
+
+        .status {
+            padding: 1.5em;
+            margin: 1em;
+            display: block;
+            background-size: cover;
+        }
+
+        .status.active {
+            background-image: url('/static/icon/ports/active.png');
+        }
+
+        .status.disabled {
+            background-image: url('/static/icon/ports/disabled.png');
+        }
+
+        .status.unplugged {
+            background-image: url('/static/icon/ports/unplug.png');
+        }
+
+        .status span {
+            display: inline-block;
+        }
+
+        body {
+            padding-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Title</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Alarms</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Events</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Panel title</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Panel title</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Panel title</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Site information</div>
+                    <!-- Table -->
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Site name</th>
+                            <td>{{site.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Owner</th>
+                            <td>{{site.owner}}</td>
+                        </tr>
+                        <tr>
+                            <th>Device</th>
+                            <td>{{device}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                {% for interface in interfaces %}
+                {% if interface.elements.count %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{interface.name}} has <span class="badge"
+                                title="{{ interface.name }} has {{ interface.elements.count }} elements">{{ interface.elements.count }}</span>
+                            elements
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for e in interface.elements.all %}
+                        <!-- {{ e.name }} -- {{e.status}} -->
+                        <div class="element">
+                            <span class="status {{ e.status }}"></span>
+                            <span class="name">{{e.name}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>

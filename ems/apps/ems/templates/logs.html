@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block title %}{{interface}} Interface{% endblock %}
+{% block content %}
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ interface }} </h3>
+                </div>
+                <div class="panel-body">
+                    {% for element in interface.elements.all %}
+                    <div class="element">
+                        <span class="status {{ element.status }}"></span>
+                        <span class="name">{{element.name}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edit Interface {{interface}}</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="" method="POST" role="form">
+                        {{csrf}}
+                        {% for field in form %}
+                        <div class="fieldWrapper">
+                            {{ field.errors }}
+                            <div class="form-group">
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{
+    "interfaces": [{
+        "elements": [{
+            "status": "active",
+            "name": "E1_1",
+            "statuses": ["active", "disabled", "active", "active", "unplugged", "unplugged", "unplugged", "disabled"]
+        }, {
+            "status": "unplugged",
+            "name": "E1_2",
+            "statuses": ["active", "disabled", "active", "active", "unplugged", "disabled"]
+        }, {
+            "status": "disabled",
+            "name": "E1_3",
+            "statuses": ["active", "disabled", "active", "active", "unplugged", "disabled"]
+        }, {
+            "status": "unplugged",
+            "name": "E1_4",
+            "statuses": ["active", "disabled", "active", "active", "unplugged"]
+        }],
+        "name": "E1"
+    }, {
+        "elements": [{
+            "status": "active",
+            "name": "E3_1",
+            "statuses": ["active", "disabled", "active", "unplugged"]
+        }, {
+            "status": "active",
+            "name": "E3_2",
+            "statuses": ["active", "disabled", "active", "active", "disabled", "unplugged"]
+        }],
+        "name": "E3"
+    }, {
+        "elements": [{
+            "status": "active",
+            "name": "ETH_1",
+            "statuses": ["active", "disabled"]
+        }, {
+            "status": "disabled",
+            "name": "ETH_2",
+            "statuses": ["disabled"]
+        }, {
+            "status": "disabled",
+            "name": "ETH1_3",
+            "statuses": ["disabled"]
+        }],
+        "name": "ETH"
+    }],
+    "site": {
+        "owner": "Dummy Owner",
+        "name": "My Dummy Site",
+        "nms_ip": "10.0 .0 .179"
+    }
+}

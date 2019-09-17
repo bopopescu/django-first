@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}Interfaces | Web EMS{% endblock %}
+{% block content %}
+{% for interface in interfaces %}
+{% if interface.elements.count %}
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{interface.name}} has <span class="badge"
+                title="{{ interface.name }} has {{ interface.elements.count }} elements">{{ interface.elements.count }}</span>
+            elements
+            <a class="pull-right" href="{% url 'ems_interface' interface.id %}">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="panel-body">
+            {% for e in interface.elements.all %}
+            <!-- {{ e.name }} -- {{e.status}} -->
+            <div class="element">
+                <span class="status {{ e.status }}"></span>
+                <span class="name">{{e.name}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

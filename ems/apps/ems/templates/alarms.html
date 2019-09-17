@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %} Alarms {% endblock %}
+{% block content %}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Alarms </h3>
+        </div>
+
+        {% if alarms %}
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Severity</th>
+                    <th>Message</th>
+                    <th>Created on</th>
+                    <th>Updated on</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alarm in alarms %}
+                <tr class="alert alert-{{alarm.severity_level}}">
+                    <td>{{ alarm.severity_level|title}}</td>
+                    <td>{{ alarm.notification|title }}</td>
+                    <td>{{ alarm.created_on}}</td>
+                    <td>{{alarm.updated_on}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else%}
+        <div class="panel-body">
+            <h3>No alarm found, everything working fine</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

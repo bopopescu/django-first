@@ -1,0 +1,145 @@
+{% extends 'layout.html' %}
+{% block title %}Welcome to Home Screen{% endblock %}
+{% block content %}
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Site information <a class="pull-right" href="/site">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <!-- <a class="pull-right" href="/system-settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a> -->
+        </div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <tr>
+                <th>Site name</th>
+                <td>{{site.name}}</td>
+            </tr>
+            <tr>
+                <th>Site type</th>
+                <td>{% if site.is_master%} Master {% else %} Slave {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Owner</th>
+                <td>{{site.owner}}</td>
+            </tr>
+            <tr>
+                <th>Device</th>
+                <td>{{device}}</td>
+            </tr>
+            <tr>
+                <th>NMS IP</th>
+                <td>{{site.nms_ip}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">IDU information <a class="pull-right" href="/device">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <!-- <a class="pull-right" href="/system-settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a> -->
+        </div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <tr>
+                <th>IDU IP</th>
+                <td>10.0.0.21</td>
+            </tr>
+            <tr>
+                <th>Mac Address</th>
+                <td>0023467876</td>
+            </tr>
+            <tr>
+                <th>Datetime</th>
+                <td>22/07/2019 14:37:22</td>
+            </tr>
+            <tr>
+                <th>Software version</th>
+                <td>0.0.1 <a class="pull-right" href="{% url 'ems_update_software' %}">Update <span
+                            class="glyphicon glyphicon-upload" aria-hidden="true"></span></a></td>
+            </tr>
+            <tr>
+                <th>Current temperature</th>
+                <td>22<sup>o</sup> C</td>
+            </tr>
+            <tr>
+                <th>Hardware version</th>
+                <td>1.0</td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">ODU Information
+            <!-- <a class="pull-right" href="/system-settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a> -->
+        </div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <tr>
+                <th>ODU IP</th>
+                <td><a href="//10.0.0.60:8000" target="new">10.0.0.60</a></td>
+            </tr>
+            <!-- <tr>
+                <th>Wireless RF</th>
+                <td><span class="led green">Up</span></td>
+            </tr>
+            <tr>
+                <th>Rotator angle</th>
+                <td><span class="led green">30.2</span></td>
+            </tr>
+            <tr>
+                <th>Mac Address</th>
+                <td>0023467876</td>
+            </tr>
+            <tr>
+                <th>Datetime</th>
+                <td>22/07/2019 14:37:22</td>
+            </tr>
+            <tr>
+                <th>Software version</th>
+                <td>0.0.1</td>
+            </tr>
+            <tr>
+                <th>Current temperature</th>
+                <td>22<sup>o</sup> C</td>
+            </tr>
+            <tr>
+                <th>Hardware version</th>
+                <td>1.0</td>
+            </tr> -->
+        </table>
+    </div>
+</div>
+{% for interface in interfaces %}
+{% if interface.elements.count %}
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{interface.name}} has <span class="badge"
+                title="{{ interface.name }} has {{ interface.elements.count }} elements">{{ interface.elements.count }}</span>
+            elements
+            <a class="pull-right" href="{% url 'ems_interface' interface.id %}">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="panel-body">
+            {% for e in interface.elements.all %}
+            <!-- {{ e.name }} -- {{e.status}} -->
+            <div class="element">
+                <span class="status {{ e.status }}"></span>
+                <span class="name">{{e.name}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
