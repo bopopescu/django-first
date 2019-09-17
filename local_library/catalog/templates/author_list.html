@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+{% if list %}
+    <ul>
+    {% for author in list %}
+       <li><a href="{% url 'catalog:author_detail' author.id %}">{{author.first_name}} {{author.last_name}}</a> </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p> no authors added</p>
+
+{% endif %}
+
+{% endblock %}
