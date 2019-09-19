@@ -4,9 +4,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# class Members(models.Model):
-#     user = models.OneToOneField(User,on_delete=models.CASCADE)
-#     no_visits = models.IntegerField(default=0)
+
+class LibraryUser(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+
+    last_login = models.DateField(null=True,blank=True)
+    no_visits = models.IntegerField(default=0)
+
 
 class Genre(models.Model):
     """Model representing a book genre."""

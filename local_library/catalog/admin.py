@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, BookInstance, Author, Genre, Language
+from .models import Book, BookInstance, Author, Genre, Language, LibraryUser
 # Register your models here.
 
 # @admin.register(Members) 
@@ -20,6 +20,10 @@ class BookAdmin(admin.ModelAdmin):
 class BookInstanceAdmin(admin.ModelAdmin):
     list_display = ('book', 'due_back', 'status', 'id')
     list_filter = ('status', 'due_back')                    #to filter out the listed result
+
+@admin.register(LibraryUser)
+class LibraryUserAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):

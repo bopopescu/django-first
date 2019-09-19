@@ -1,31 +1,26 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView
-from .models import Book,BookInstance,Author,Language,Genre
+from django.views.generic import TemplateView, ListView, DetailView, View
+from .models import Book,BookInstance,Author,Language,Genre, LibraryUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth import logout, login, authenticate    
+from django.urls import reverse
+from django.http import HttpResponseRedirect, HttpResponse
+from datetime import datetime
 # Create your views here.
 
 class IndexView(LoginRequiredMixin,TemplateView):
     login_url = '/login'
     template_name = 'index.html'
-    # num_visit = 0
-
-    def get(self,request,*args,**kwargs):       
-        self.num_visit = request.session.get('num_visit',0)
-        self.num_visit += 1
-        request.session['num_visit'] = self.num_visit
-        context = self.get_context_data()
-        return self.render_to_response(context)
-    
-    
+ 
     def get_context_data(self, **kwargs):
          context = super().get_context_data(**kwargs)
          context['books'] = Book.objects.all().count()
          context['book_instance'] = BookInstance.objects.all().count()
          context['available'] = BookInstance.objects.filter(status__exact='a').count()
          context['author'] = Author.objects.all().count()
-         context['num_visit'] = self.num_visit
-         context['last_login'] = User.objects.get(pk__exact=self.request.session['id']).last_login
+         context['num_visit'] = (LibraryUser.objects.get(user_id=self.request.user.id)).no_visits
+         context['last_login'] = LibraryUser.objects.get(user_id=self.request.user.id).last_login
          return context
 
 
@@ -61,3 +56,42 @@ class AuthorDetailView(LoginRequiredMixin,DetailView):
     model = Author
     template_name = 'author_detail.html'
     context_object_name = 'author'
+
+
+class LogoutView(LoginRequiredMixin,View):
+
+    def get(self,request):
+        u = LibraryUser.objects.get(user_id=request.user.id)
+        u.last_login = datetime.now()
+        u.save()
+        # request.user.last_login = datetime.now()
+        print(u.last_login)
+        # request.user.save()
+        response = logout(request)
+        return HttpResponseRedirect(reverse('catalog:index'))
+
+
+class LoginView(View):
+    model = LibraryUser
+
+    def post(self,request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username,password)
+        user = authenticate(username=username,password=password)
+
+        if user :
+            u = LibraryUser.objects.get(user_id=user.id)    #(user_id=request.user.pk) -> not working
+            u.no_visits += 1
+            u.save()
+            login(request,user)
+            return HttpResponseRedirect(reverse('catalog:index'))
+        else :
+            return HttpResponseRedirect(reverse('catalog:login'))
+    
+    def get(self,request):
+        return render(request,'registration/login.html')
+
+        
+
+        

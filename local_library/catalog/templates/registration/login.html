@@ -113,10 +113,12 @@
 </head>
 
 <body>
-    <form method="post">
-        <legend>Library Login</legend>
+    <form action='{% url "catalog:login" %}' method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <legend>Library Login</legend>
+        <label>Username:</label> <input type="text" name="username" /> <br />
+        <label>Password:</label> <input type="password" name="password"  /> <br/>
+        <!-- {{ form.as_p }} -->
         <button type="submit">Login</button>
     </form>
 </body>

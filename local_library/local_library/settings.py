@@ -86,7 +86,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+'''AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -99,7 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
+]'''
 
 
 # Internationalization
@@ -126,6 +126,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
-SESSION_COOKIE_AGE = 15 * 60 
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+# SESSION_COOKIE_AGE = 15 * 60 
+
+# AUTH_USER_MODEL = 'catalog.LibraryUser'
 
 # AUTHENTICATION_BACKENDS = ['catalog.auth.catalog_auth.Backend']
