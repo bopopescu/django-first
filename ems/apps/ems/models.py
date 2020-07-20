@@ -43,8 +43,8 @@ class Site(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     owner = models.CharField(max_length=255, blank=False, null=False)
     nms_ip = models.CharField(max_length=20, blank=False, null=False)
-    is_master = models.BooleanField(default=1, blank=False, null=False)
-    master_ip = models.CharField(max_length=20, blank=True, null=True)
+    is_main = models.BooleanField(default=1, blank=False, null=False)
+    main_ip = models.CharField(max_length=20, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -54,7 +54,7 @@ class Site(models.Model):
         return self.name
 
 
-class Slave(models.Model):
+class Subordinate(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     ip_address = models.CharField(max_length=20, blank=True, null=True)
 

@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Slave',
+            name='Subordinate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
@@ -39,12 +39,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='site',
-            name='is_master',
+            name='is_main',
             field=models.BooleanField(default=1),
         ),
         migrations.AddField(
             model_name='site',
-            name='master_ip',
+            name='main_ip',
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
     ]
